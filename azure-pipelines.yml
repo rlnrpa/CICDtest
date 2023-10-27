@@ -24,6 +24,6 @@ steps:
 
 - task: UiPathDeploy@4
   inputs:
+    orchestratorConnection: 'DevopsSC'
     packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
-    folderName: 'Test'
-    orchestratorConnection: DevopsSC
+    folderName: 'Pipelines'
