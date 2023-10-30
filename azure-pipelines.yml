@@ -26,4 +26,5 @@ steps:
   inputs:
     orchestratorConnection: 'DevopsSC'
     packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
-    folderName: 'Pipelines'
+    folderName: 'Test\Pipeline-test'
+    
