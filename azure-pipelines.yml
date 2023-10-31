@@ -1,0 +1,35 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: UiPathPack@4
+      inputs:
+        versionType: 'AutoVersion'
+        projectJsonPath: 'EnableIncognitoMode/project.json'
+        outputType: 'Process'
+        orchestratorConnection: 'DevopsSC'
+        outputPath: '$(Build.ArtifactStagingDirectory)\Output'
+
+- stage: Deploy
+  dependsOn: Build
+  jobs:
+  - job: Deploy
+    steps:
+      - task: UiPathDeploy@4
+        inputs:
+          orchestratorConnection: 'DevopsSC'
+          packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
+          folderName: 'Pipelines'
+          entryPoints: 'EnableIncognitoMode.xaml'
