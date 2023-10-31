@@ -30,6 +30,6 @@ stages:
       - task: UiPathDeploy@4
         inputs:
           orchestratorConnection: 'DevopsSC'
-          packagesPath: '$(System.ArtifactsDirectory)/d/$(Build.DefinitionName)_$(Build.BuildId).zip'
+          packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
           folderName: 'Test/Pipeline-test'
           entryPoints: 'EnableIncognitoMode.xaml'
