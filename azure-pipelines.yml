@@ -31,5 +31,5 @@ stages:
         inputs:
           orchestratorConnection: 'DevopsSC'
           packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
-          folderName: 'Test/Pipeline-test'
+          folderName: 'Pipelines'
           entryPoints: 'EnableIncognitoMode.xaml'
