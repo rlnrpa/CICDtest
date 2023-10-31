@@ -9,23 +9,27 @@ trigger:
 pool:
   vmImage: windows-latest
 
-jobs:
-- job: Build
-  steps:
-  - task: UiPathPack@4
-    inputs:
-      versionType: 'AutoVersion'
-      projectJsonPath: 'EnableIncognitoMode/project.json'
-      outputType: 'Process'
-      orchestratorConnection: 'DevopsSC'
-      outputPath: '$(Build.ArtifactStagingDirectory)\Output'
-
-- job: Deploy
-  dependsOn: Build
-  steps:
-    - task: UiPathDeploy@4
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: UiPathPack@4
       inputs:
+        versionType: 'AutoVersion'
+        projectJsonPath: 'EnableIncognitoMode/project.json'
+        outputType: 'Process'
         orchestratorConnection: 'DevopsSC'
-        packagesPath: '$(System.ArtifactsDirectory)/d/$(Build.DefinitionName)_$(Build.BuildId).zip'
-        folderName: 'Test/Pipeline-test'
-        entryPoints: 'EnableIncognitoMode.xaml'
+        outputPath: '$(Build.ArtifactStagingDirectory)\Output'
+
+- stage: Deploy
+  dependsOn: Build
+  jobs:
+  - job: Deploy
+    steps:
+      - task: UiPathDeploy@4
+        inputs:
+          orchestratorConnection: 'DevopsSC'
+          packagesPath: '$(System.ArtifactsDirectory)/d/$(Build.DefinitionName)_$(Build.BuildId).zip'
+          folderName: 'Test/Pipeline-test'
+          entryPoints: 'EnableIncognitoMode.xaml'
