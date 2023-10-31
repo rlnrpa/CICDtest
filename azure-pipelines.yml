@@ -18,13 +18,13 @@ steps:
     versionType: 'AutoVersion'
     projectJsonPath: 'EnableIncognitoMode/project.json'
     outputType: 'Process'
-    outputPath: '$(Build.ArtifactStagingDirectory)\Output\package.nupkg'
+    outputPath: '$(Build.ArtifactStagingDirectory)\Output'
     runWorkflowAnalysis: true
     orchestratorConnection: DevopsSC
 
 - task: UiPathDeploy@4
   inputs:
     orchestratorConnection: 'DevopsSC'
-    packagesPath: '$(Build.ArtifactStagingDirectory)\Output\package.nupkg'
+    packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
     folderName: 'Test\Pipeline-test'
     
