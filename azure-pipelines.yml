@@ -19,7 +19,7 @@ stages:
         versionType: 'AutoVersion'
         projectJsonPath: 'EnableIncognitoMode/project.json'
         outputType: 'Process'
-        orchestratorConnection: 'DevopsSC'
+        orchestratorConnection: 'JuniorTrainingSC'
         outputPath: '$(Build.ArtifactStagingDirectory)\Output'
 
 - stage: Deploy
@@ -29,7 +29,7 @@ stages:
     steps:
       - task: UiPathDeploy@4
         inputs:
-          orchestratorConnection: 'DevopsSC'
+          orchestratorConnection: 'JuniorTrainingSC'
           packagesPath: '$(Build.ArtifactStagingDirectory)\Output'
-          folderName: 'Pipelines'
+          folderName: 'Test/Pipeline-test'
           entryPoints: 'EnableIncognitoMode.xaml'
